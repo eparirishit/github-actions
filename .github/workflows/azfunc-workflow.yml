@@ -4,8 +4,6 @@ on:
   push:
     branches: [ master ]
 
-workflow_dispatch:
-
 env:
   DOTNET_VERSION: '3.1.x'
   AZURE_RESOURCE_GROUP_NAME: 'rg-3dexPoc-d-australiaeast-002'
@@ -34,7 +32,7 @@ jobs:
        # Makes source code accessible via $github.workspace
        - name: 'Checking out source code ...'
          uses: actions/checkout@v2
- 
+
        # Deploy Azure function app
        # Note: Using Azure CLI for deployment as it provides more verbose error messages
        - name: 'Creating Azure Function App'
@@ -47,14 +45,14 @@ jobs:
              --template-file $GITHUB_WORKSPACE/AzFunctionGhAction.ARMTemplate/template.json \
              --mode incremental \
              --parameters $GITHUB_WORKSPACE/AzFunctionGhAction.ARMTemplate/parameters.json \
- 
+
     ############################################################################
 
     build-az-function:
       needs: [deploy-az-infrastructure]
       runs-on: ubuntu-latest
       steps:
-      
+
        # Makes source code accessible via $github.workspace
        - name: 'Checking out source code ...'
          uses: actions/checkout@v2
@@ -63,7 +61,7 @@ jobs:
          uses: actions/setup-dotnet@v1
          with:
            dotnet-version: ${{ env.DOTNET_VERSION }}
-       
+
        - name: 'Build and package code'
          shell: bash
          run: |
@@ -73,7 +71,7 @@ jobs:
            dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output .
            mkdir ${{ env.BUILD_OUTPUT_PATH }}
            zip -r ${{ env.BUILD_OUTPUT_PATH }}/${{ env.BUILD_PACKAGE_NAME }} .
-       
+
        # Upload the code artifact, this will be used later
        - name: 'Package Azure Function release build'
          uses: actions/upload-artifact@v2
@@ -88,11 +86,11 @@ jobs:
       needs: [build-az-function]
       runs-on: ubuntu-latest
       steps:
-      
+
        # Makes source code accessible via $github.workspace
        - name: 'Checking out source code ...'
          uses: actions/checkout@v2
-       
+
        # Authentication
        # Set up the following secrets in your repository: AZURE_CREDENTIALS
        # For details see https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure
@@ -101,7 +99,7 @@ jobs:
          with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
            enable-AzPSSession: true
-       
+
        - name: 'Fetching Azure Functions Publishing Profile'
          id: fncapp
          uses: azure/powershell@v1
