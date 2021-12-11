@@ -10,7 +10,7 @@ env:
   AZURE_FUNCTIONAPP_NAME: 'azfngactions'
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ github.workspace }}/AzFunctionGhAction'
   BUILD_OUTPUT_PATH: '${{ github.workspace }}/build-artifacts'
-  BUILD_PACKAGE_NAME: 'az-func.zip'
+  BUILD_PACKAGE_NAME: 'az-func-gha.zip'
 
 defaults:
   run:
