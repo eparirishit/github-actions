@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "9f9022db-bb4e-4f02-985e-1350170236ec"
+        },
+        "name": {
+            "value": "azfngactions"
+        },
+        "location": {
+            "value": "Australia East"
+        },
+        "hostingPlanName": {
+            "value": "ASP-rg3dexPocdaustraliaeast002-91a0"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-3dexPoc-d-australiaeast-002"
+        },
+        "alwaysOn": {
+            "value": false
+        },
+        "storageAccountName": {
+            "value": "storageaccountrg3deb79d"
+        },
+        "sku": {
+            "value": "Dynamic"
+        },
+        "skuCode": {
+            "value": "Y1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": true
+        }
+    }
+}
